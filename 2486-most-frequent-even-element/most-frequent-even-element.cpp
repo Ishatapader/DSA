@@ -1,21 +1,29 @@
 class Solution {
 public:
     int mostFrequentEven(vector<int>& nums) {
-        int n = nums.size();
         vector<int> freq(100001, 0);
-        for (int i = 0; i < n; i++) {
-            if (nums[i] % 2 == 0) {
-                freq[nums[i]]++;
+
+        int maxEven = -1;
+
+        for (int x : nums) {
+            if (x % 2 == 0) {
+                freq[x]++;
+                maxEven = max(maxEven, x);
             }
         }
-        int max_count = 0;
+
+        if (maxEven == -1) return -1;
+
         int ans = -1;
-        for (int i = 0; i < 100000; i++) {
-            if (freq[i] > max_count) {
-                max_count = freq[i];
+        int maxFreq = 0;
+
+        for (int i = 0; i <= maxEven; i += 2) {
+            if (freq[i] > maxFreq) {
+                maxFreq = freq[i];
                 ans = i;
             }
         }
+
         return ans;
     }
 };
