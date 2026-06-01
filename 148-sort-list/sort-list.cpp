@@ -10,71 +10,65 @@
  */
 class Solution {
 public:
-    class List {
-    public:
-        ListNode* head;
-        ListNode* tail;
 
-        List() {
-            head = NULL;
-            tail = NULL;
-        }
-
-        void push_back(int val) {
-            ListNode* newNode = new ListNode(val);
-            if (head == NULL) {
-                head = tail = newNode;
-            } else {
-                tail->next = newNode;
-                tail = newNode;
-            }
-        }
-    };
     ListNode* merge(ListNode* left, ListNode* right) {
-        List ans; // Creating new list
-        ListNode* i = left;
-        ListNode* j = right;
-        while (i != NULL && j != NULL) {
-            if (i->val <= j->val) {
-                ans.push_back(i->val);
-                i = i->next;
-            } else {
-                ans.push_back(j->val);
-                j = j->next;
+
+        ListNode dummy(-1);
+        ListNode* tail = &dummy;
+
+        while(left != NULL && right != NULL) {
+
+            if(left->val <= right->val) {
+                tail->next = left;
+                left = left->next;
             }
-        }
-        while (i != NULL) {
-            ans.push_back(i->val);
-            i = i->next;
-        }
-        while (j != NULL) {
-            ans.push_back(j->val);
-            j = j->next;
+            else {
+                tail->next = right;
+                right = right->next;
+            }
+
+            tail = tail->next;
         }
 
-        return ans.head; // returning the head of answer
+        if(left != NULL) {
+            tail->next = left;
+        }
+
+        if(right != NULL) {
+            tail->next = right;
+        }
+
+        return dummy.next;
     }
+
     ListNode* splitAtMid(ListNode* head) {
+
         ListNode* slow = head;
         ListNode* fast = head;
         ListNode* prev = NULL;
-        while (fast != NULL && fast->next != NULL) {
+
+        while(fast != NULL && fast->next != NULL) {
             prev = slow;
             slow = slow->next;
             fast = fast->next->next;
         }
-        if (prev != NULL) {
-            prev->next = NULL;
-        }
-        return slow; // rightNode = slow
+
+        prev->next = NULL;
+
+        return slow;
     }
+
     ListNode* sortList(ListNode* head) {
-        if (head == NULL || head->next == NULL) {
+
+        if(head == NULL || head->next == NULL) {
             return head;
         }
+
         ListNode* rightHead = splitAtMid(head);
-        ListNode* left = sortList(head);       // left head
-        ListNode* right = sortList(rightHead); // right head
+
+        ListNode* left = sortList(head);
+        ListNode* right = sortList(rightHead);
+
         return merge(left, right);
     }
 };
