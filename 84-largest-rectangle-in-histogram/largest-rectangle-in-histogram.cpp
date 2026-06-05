@@ -7,7 +7,7 @@ public:
         stack<int> s;
         // next smaller left
         nextSmallerLeft[0] = -1;
-        s.push(0); // push 0 index
+        s.push(0); 
         for (int i = 1; i < heights.size(); i++) {
             int currentElement = heights[i];
             while (!s.empty() && currentElement <= heights[s.top()]) {
@@ -20,7 +20,6 @@ public:
             }
             s.push(i);
         }
-
         while (!s.empty()) {
             s.pop();
         }
