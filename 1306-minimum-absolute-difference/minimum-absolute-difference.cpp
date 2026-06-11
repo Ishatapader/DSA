@@ -3,7 +3,7 @@ public:
     vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
         sort(arr.begin(), arr.end());
         int minDiff = INT_MAX;
-        vector<vector<int>> absolute;
+        vector<vector<int>>absolute;
         for (int i = 1; i < arr.size(); i++) {
             minDiff = min(minDiff, arr[i] - arr[i - 1]);
         }
