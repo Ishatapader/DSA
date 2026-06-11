@@ -6,7 +6,7 @@ public:
         int count = 1;
         int currEndTime = pairs[0][1];
         for (int i = 1; i < pairs.size(); i++) {
-            if (currEndTime < pairs[i][0]) { // overlapping
+            if (currEndTime < pairs[i][0]) {
                 count++;
                 currEndTime = pairs[i][1];
             }
