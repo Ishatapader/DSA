@@ -1,10 +1,9 @@
 class Solution {
 public:
     int balancedStringSplit(string s) {
-        int n = s.size();
         int count = 0;
         int substringCount = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < s.size(); i++) {
             char ch = s[i];
             if (ch == 'R') {
                 count++;
