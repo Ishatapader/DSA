@@ -33,7 +33,6 @@ public:
             return false;
         }
         if (root->val == subRoot->val) {
-
             if (isIdentical(root, subRoot)) {
                 return true;
             }
