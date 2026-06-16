@@ -1,7 +1,7 @@
 class Solution {
 public:
     string processStr(string s) {
-             int n = s.size();
+        int n = s.size();
         string ans = "";
         for (int i = 0; i < n; i++) {
             char ch = s[i];
@@ -12,13 +12,13 @@ public:
             } else if (ch == '%') {
                 int start = 0;
                 int end = ans.size() - 1;
-                while(start < end){
+                while (start < end) {
                     swap(ans[start], ans[end]);
                     start++;
                     end--;
                 }
             } else if (ch == '*') {
-                if(!ans.empty()){
+                if (!ans.empty()) {
                     ans.pop_back();
                 }
             }
