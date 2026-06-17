@@ -1,42 +1,41 @@
 class Solution {
 public:
     char processStr(string s, long long k) {
-        int n = s.size();
-        vector<long long> len(n);
 
-        long long currLen = 0;
+        vector<long long> len(s.size());
+        long long cur = 0;
 
-        for (int i = 0; i < n; i++) {
-            char ch = s[i];
-
-            if (ch != '#' && ch != '%' && ch != '*') {
-                currLen++;
-            } else if (ch == '#') {
-                currLen = min(currLen * 2, (long long)4e18);
-            } else if (ch == '*') {
-                if (currLen > 0)
-                    currLen--;
+        // Calculate lengths
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '#')
+                cur *= 2;
+            else if (s[i] == '*') {
+                if (cur > 0) cur--;
             }
+            else if (s[i] != '%')
+                cur++;
 
-            len[i] = currLen;
+            len[i] = min(cur, (long long)4e18);
         }
 
-        if (k >= currLen)
-            return '.';
+        if (k >= cur) return '.';
 
-        for (int i = n - 1; i >= 0; i--) {
+        // Work backwards
+        for (int i = s.size() - 1; i >= 0; i--) {
 
-            char ch = s[i];
-            long long prevLen = (i == 0 ? 0 : len[i - 1]);
+            long long prev = (i == 0 ? 0 : len[i - 1]);
 
-            if (ch != '#' && ch != '%' && ch != '*') {
-                if (k == prevLen)
-                    return ch;
-            } else if (ch == '#') {
-                if (k >= prevLen)
-                    k -= prevLen;
-            } else if (ch == '%') {
-                k = prevLen - 1 - k;
+            if (s[i] == '#') {
+                if (k >= prev) k -= prev;
+            }
+            else if (s[i] == '%') {
+                if (prev) k = prev - 1 - k;
+            }
+            else if (s[i] == '*') {
+                continue;
+            }
+            else {
+                if (k == prev) return s[i];
             }
         }
 
