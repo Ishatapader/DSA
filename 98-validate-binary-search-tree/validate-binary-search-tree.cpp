@@ -25,5 +25,7 @@ public:
         return validateHelper(root->left, min, root) &&
                validateHelper(root->right, root, max);
     }
-    bool isValidBST(TreeNode* root) { return validateHelper(root, NULL, NULL); }
+    bool isValidBST(TreeNode* root) { 
+        return validateHelper(root, NULL, NULL);
+    }
 };
