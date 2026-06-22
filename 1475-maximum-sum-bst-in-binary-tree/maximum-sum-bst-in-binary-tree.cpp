@@ -9,50 +9,51 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
- 
+class nodeValue {
+public:
+    int min;
+    int max;
+    int sum;
+
+    nodeValue(int min, int max, int sum) {
+        this->min = min;
+        this->max = max;
+        this->sum = sum;
+    }
+};
+
 class Solution {
 public:
-
-    struct Info {
-        bool isBST;
-        int minVal;
-        int maxVal;
-        int sum;
-    };
-
     int ans = 0;
 
-    Info solve(TreeNode* root) {
-
-        if (root == NULL) {
-            return {true, INT_MAX, INT_MIN, 0};
-        }
-
-        Info left = solve(root->left);
-        Info right = solve(root->right);
-
-        if (left.isBST &&
-            right.isBST &&
-            root->val > left.maxVal &&
-            root->val < right.minVal) {
-
-            int currSum = left.sum + right.sum + root->val;
-
-            ans = max(ans, currSum);
-
-            return {
-                true,
-                min(root->val, left.minVal),
-                max(root->val, right.maxVal),
-                currSum
-            };
-        }
-
-        return {false, INT_MIN, INT_MAX, 0};
+    int maxSumBST(TreeNode* root) {
+        helper(root);
+        return ans;
     }
 
-    int maxSumBST(TreeNode* root) {
-        solve(root);
-        return ans;
+    nodeValue helper(TreeNode* root) {
+
+        if (root == NULL)
+            return nodeValue(INT_MAX, INT_MIN, 0);
+
+        nodeValue l = helper(root->left);
+        nodeValue r = helper(root->right);
+
+        if (root->val > l.max && root->val < r.min) {
+
+            ans = max(ans, root->val + l.sum + r.sum);
+
+            return nodeValue(
+                min(root->val, l.min),
+                max(root->val, r.max),
+                l.sum + root->val + r.sum
+            );
+        }
+
+        return nodeValue(
+            INT_MIN,
+            INT_MAX,
+            max(l.sum, r.sum)
+        );
     }
 };
