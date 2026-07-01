@@ -27,9 +27,8 @@ public:
         for (int i = 0; i < word.size(); i++) {
             if (temp->children.count(word[i]) == 0) {
                 return false;
-            } 
-               temp = temp -> children[word[i]];
-            
+            }
+            temp = temp->children[word[i]];
         }
         return temp->endOfWord;
     }
