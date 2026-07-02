@@ -21,10 +21,10 @@ public:
         }
         temp->endOfWord = true;
     }
-    void longestHelper(Node* root, string& ans, string temp) {
-        for (pair<char, Node*> child : root->children) {
+    void longestHelper(Node* root, string& ans, string &temp) {
+        for (auto child : root->children) {
             if (child.second->endOfWord) {
-                temp += child.first;
+                temp.push_back(child.first);
 
                 if ((temp.size() == ans.size() && temp < ans) ||
                     (temp.size() > ans.size())) {
@@ -37,7 +37,8 @@ public:
     }
     string longestStringWithEOW() {
         string ans = "";
-        longestHelper(root, ans, "");
+        string temp = "";
+        longestHelper(root, ans, temp);
         return ans;
     }
 };
