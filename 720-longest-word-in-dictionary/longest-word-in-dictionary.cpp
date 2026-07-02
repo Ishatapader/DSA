@@ -31,7 +31,7 @@ public:
                     ans = temp;
                 }
                 longestHelper(child.second, ans, temp);
-                temp = temp.substr(0, temp.size() - 1);
+                temp.pop_back();
             }
         }
     }
