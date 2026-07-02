@@ -22,7 +22,7 @@ public:
         temp->endOfWord = true;
     }
     void longestHelper(Node* root, string& ans, string &temp) {
-        for (auto &child : root->children) {
+        for (auto child : root->children) {
             if (child.second->endOfWord) {
                 temp.push_back(child.first);
 
